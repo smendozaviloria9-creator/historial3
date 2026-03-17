@@ -1,0 +1,62 @@
+# Inicialización de variables para las estadísticas finales
+estudiantes = []
+total_promedios = 0
+mejor_promedio = -1
+mejor_estudiante = ""
+
+# Contadores para niveles
+niveles = {"bajo": 0, "medio": 0, "alto": 0}
+
+print("--- Registro de Estudiantes: Centro de Idiomas ---")
+
+while True:
+    nombre = input("\nIngrese el nombre del estudiante (o 'salir' para terminar): ")
+    if nombre.lower() == 'salir':
+        break
+    
+    # Las  notas
+    try:
+        n_speaking = float(input(f"Nota de Speaking para {nombre}: "))
+        n_listening = float(input(f"Nota de Listening para {nombre}: "))
+        n_reading = float(input(f"Nota de Reading para {nombre}: "))
+        
+        # 1. Calcular promedio simple
+        promedio = (n_speaking + n_listening + n_reading) / 3
+        
+        # 2. Clasificar según el rango
+        if promedio < 60:
+            nivel = "bajo"
+        elif 60 <= promedio <= 79:
+            nivel = "medio"
+        else: # 80 o más
+            nivel = "alto"
+            
+        # Actualizar contadores y estadísticas
+        niveles[nivel] += 1
+        total_promedios += promedio
+        estudiantes.append(nombre)
+        
+        # Lógica para encontrar al mejor estudiante
+        if promedio > mejor_promedio:
+            mejor_promedio = promedio
+            mejor_estudiante = nombre
+            
+        print(f"Resultado: Promedio {promedio:.2f} - Nivel: {nivel}")
+        
+    except ValueError:
+        print("Error: Por favor ingrese valores numéricos para las notas.")
+
+# --- Mostrar Resultados Finales ---
+if estudiantes:
+    promedio_general = total_promedios / len(estudiantes)
+    
+    print("\n" + "="*30)
+    print("      RESUMEN FINAL")
+    print("="*30)
+    print(f"Promedio general del grupo: {promedio_general:.2f}")
+    print(f"Mejor estudiante: {mejor_estudiante} (Nota: {mejor_promedio:.2f})")
+    print("\nDistribución por niveles:")
+    for nivel, cantidad in niveles.items():
+        print(f" - {nivel.capitalize()}: {cantidad}")
+else:
+    print("\nNo se registraron estudiantes.")
