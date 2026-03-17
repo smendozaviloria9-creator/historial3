@@ -1,0 +1,48 @@
+total_recaudado = 0
+cont_basico = 0
+cont_premium = 0
+cont_familiar = 0
+print ("--- registro de club recreativo ---")
+
+while True:
+    #captura de datos 
+    nombre = input("\nNOMBRE del socio (o escribe 'salir' para finalizar ):")
+    if nombre.lower() == "salir":
+        break
+    edad = int(input("edad:"))
+    print("planes disponibles: basico (50000), premium (90000), familiar (130000)")
+    plan = input("tipo de plan: ").lower()
+     #Mensaje por la edad
+    if edad < 18:
+        print(">> registro juvenil ")
+    elif edad < 60:
+        print(">> registro senior")
+    # Las reglas de los planes pecio
+    if plan == "basico" or plan == "basico":
+       costo = 50000
+       cont_basico += 1
+    elif plan == "premium" or plan == "premium":
+       costo = 90000
+       cont_premium += 1
+    elif plan == "familiar":
+       costo = 130000 
+       cont_familiar += 1 
+    else:
+        print("plan no valido. registro omitido.")
+        continue
+    total_recaudado += costo
+# El plan mas vendido
+conteos = {"basico": cont_basico, "premium": cont_premium, "familiar": cont_familiar}
+plan_mas_vendido = max(conteos, key=conteos.get)
+# --- resultados finales ---
+print("\n" + "="*30)
+print("resume de ventas")
+print(f"total recaudado: ${total_recaudado}")
+print("-" * 30)
+print(f"personas por plan:")
+print(f" - basico: {cont_basico}")
+print(f" - premium: {cont_premium}")
+print(f" - familiar: {cont_familiar}")
+print("-" * 30)
+print(f"plan mas vendido:{plan_mas_vendido}")
+print("="*30)
