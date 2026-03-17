@@ -1,0 +1,53 @@
+total_alimento = 0
+total_juguete = 0
+total_accesorio = 0
+# La categorias  disponibles 
+categorias = ["alimento", "jugete", "accesorio"]
+# Pedir 10 ventas
+for i in range(1, 11):
+    print(f"\n--- Registro de Venta {i} ---")
+    
+    # Pedir categoría y validar
+    while True:
+        categorias = input(f"Ingrese la categoría ({', '.join(categorias)}): ").lower()
+        if categorias in categorias:
+            break
+        else:
+            print("Categoría no válida. Intente de nuevo.")
+            
+    # Pedir valor y validar
+    while True:
+        try:
+            valor = float(input("Ingrese el valor de la compra: "))
+            if valor > 0:
+                break
+            else:
+                print("El valor debe ser un número positivo. Intente de nuevo.")
+        except ValueError:
+            print("Entrada no válida. Ingrese un valor numérico.")
+            
+    # Acumular el valor en la categoría correspondiente
+    if categorias == "alimento":
+        total_alimento += valor
+    elif categorias == "juguete":
+        total_juguete += valor
+    elif categorias == "accesorio":
+        total_accesorio += valor
+# Mostrar resultados finales
+print("\n--- Resumen de Ventas ---")
+print(f"Total vendido en Alimento: ${total_alimento:.2f}")
+print(f"Total vendido en Juguete: ${total_juguete:.2f}")
+print(f"Total vendido en Accesorio: ${total_accesorio:.2f}")
+
+# Determinar cuál categoría generó más dinero
+ventas_por_categorias = {
+    "Alimento": total_alimento,
+    "Juguete": total_juguete,
+    "Accesorio": total_accesorio
+}
+
+# Usar max() para encontrar la categoría con el valor más alto
+categoria_mas_vendida = max(ventas_por_categorias, key=ventas_por_categorias.get)
+monto_mas_alto = ventas_por_categorias[categoria_mas_vendida]
+
+print(f"\nLa categoría que generó más dinero fue: {categoria_mas_vendida} con un total de ${monto_mas_alto:.2f}")
